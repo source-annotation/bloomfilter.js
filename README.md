@@ -4,6 +4,10 @@ Bloom Filter
 This JavaScript bloom filter implementation uses the non-cryptographic
 [Fowler–Noll–Vo hash function][1] for speed.
 
+
+- [ ] 使用 fnv 来加速 hash   
+- [ ] 仅用 fnv 这一个方法就可以代替 bloom filter 所需的 k 个 hash function
+
 Usage
 -----
 
