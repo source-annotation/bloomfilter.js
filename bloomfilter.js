@@ -34,10 +34,12 @@
   }
 
   // See http://willwhim.wpengine.com/2011/09/03/producing-n-hash-functions-by-hashing-only-once/
+  // 上面的文章里介绍了如何用一些 trick 来避免用 k 个哈希函数，
   BloomFilter.prototype.locations = function(v) {
     var k = this.k,
         m = this.m,
         r = this._locations,
+        // a 和 b 看做两个哈希函数
         a = fnv_1a(v),
         b = fnv_1a(v, 1576284489), // The seed value is chosen randomly
         x = a % m;
@@ -76,12 +78,16 @@
     return -this.m * Math.log(1 - bits / this.m) / this.k;
   };
 
+  // 计算一个比特向量里，有多少位为1.
   // http://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetParallel
   function popcnt(v) {
     v -= (v >> 1) & 0x55555555;
     v = (v & 0x33333333) + ((v >> 2) & 0x33333333);
     return ((v + (v >> 4) & 0xf0f0f0f) * 0x1010101) >> 24;
   }
+
+  // ====================================
+  // 以下为 fnv_1a 的实现，不做解读。
 
   // Fowler/Noll/Vo hashing.
   // Nonstandard variation: this function optionally takes a seed value that is incorporated
